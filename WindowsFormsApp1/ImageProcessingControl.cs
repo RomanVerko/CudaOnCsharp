@@ -28,6 +28,7 @@ namespace WindowsFormsApp1
             textBox1.AcceptsReturn = true;
             textBox1.AcceptsTab = true;
             textBox1.WordWrap = true;
+            saveFileDialog1.Filter = "Text files(*.txt)|*.txt";
 
         }
         string outDir, srcDir;
@@ -44,20 +45,28 @@ namespace WindowsFormsApp1
             if (srcDir == null) {MessageBox.Show("No input data"); return; }
             var imagePaths = Directory.GetFiles(srcDir);
 
-
-            Test("TPL", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
-
-            Console.WriteLine("Warming up GPU...");
-            Alea.Gpu.Default.For(0, 100, i => i++);
-
-            Test("AleaGPU", imagePaths, outDir, image => AleaGpuImageFilter.Apply(image, AleaGpuImageFilter.Invert));
-
-            using (var ilGpuFilter = new IlGpuFilter())
+            if (checkBox3.Checked)
             {
-                Test("ILGPU", imagePaths, outDir, image => ilGpuFilter.Apply(image, IlGpuFilter.Invert));
+                Test("CPU Parallel", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
             }
 
-            Test("Cpu_Linear", imagePaths, outDir, image => CPUImageFilter.Apply(image, CPUImageFilter.Invert));
+            if (checkBox1.Checked)
+            {
+                Console.WriteLine("Warming up GPU...");
+                Alea.Gpu.Default.For(0, 100, i => i++);
+                Test("AleaGPU", imagePaths, outDir, image => AleaGpuImageFilter.Apply(image, AleaGpuImageFilter.Invert));
+            }
+            if (checkBox2.Checked)
+            {
+                using (var ilGpuFilter = new IlGpuFilter())
+                {
+                    Test("ILGPU", imagePaths, outDir, image => ilGpuFilter.Apply(image, IlGpuFilter.Invert));
+                }
+            }
+            if (checkBox4.Checked)
+            {
+                Test("Cpu_Linear", imagePaths, outDir, image => CPUImageFilter.Apply(image, CPUImageFilter.Invert));
+            }
             
         }
 
@@ -95,6 +104,21 @@ namespace WindowsFormsApp1
 
             textBox1.Text += $"{tech}:\t\t{stopwatch.Elapsed}{Environment.NewLine}";
         }
+        /// <summary>
+        /// Saving in txt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            // получаем выбранный файл
+            string filename = saveFileDialog1.FileName;
+            // сохраняем текст в файл
+            System.IO.File.WriteAllText(filename, textBox1.Text);
+            MessageBox.Show("Saved successfully");
+        }
 
         /// <summary>
         /// open folder
@@ -127,7 +151,6 @@ namespace WindowsFormsApp1
         {
             Stopwatch sw = new Stopwatch();
             Gpu gpu = Gpu.Default;
-            Alea.Gpu.Default.For(0, 100, i => i++);
             sw.Start();
             gpu.For(0, pixelArray.Length, i => pixelArray[i] = filter(pixelArray[i]));
             sw.Stop();

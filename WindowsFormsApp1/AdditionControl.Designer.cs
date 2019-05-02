@@ -169,6 +169,7 @@
             this.button3.TabIndex = 18;
             this.button3.Text = "Start processing";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // panel3
             // 
