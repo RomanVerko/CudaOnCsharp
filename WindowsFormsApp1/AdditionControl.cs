@@ -19,11 +19,11 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             saveFileDialog1.Filter = "Text files(*.txt)|*.txt";
-            textBox1.Multiline = true;
-            textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.AcceptsReturn = true;
-            textBox1.AcceptsTab = true;
-            textBox1.WordWrap = true;
+            textBox3.Multiline = true;
+            textBox3.ScrollBars = ScrollBars.Vertical;
+            textBox3.AcceptsReturn = true;
+            textBox3.AcceptsTab = true;
+            textBox3.WordWrap = true;
         }
         int dimention,loopCount;
         /// <summary>
@@ -44,6 +44,14 @@ namespace WindowsFormsApp1
                 return;
             }
             if(checkBox1.Checked || checkBox2.Checked || checkBox3.Checked ) textBox3.Text += $"{Environment.NewLine}----- size = {dimention} , {loopCount} loops -----{Environment.NewLine}";
+
+            progressBar1.Value = 0;
+            int checkedNums = 0;
+            if (checkBox1.Checked) checkedNums++;
+            if (checkBox2.Checked) checkedNums++;
+            if (checkBox3.Checked) checkedNums++;
+            progressBar1.Maximum = loopCount * checkedNums;
+            progressBar1.Step = 1;
             if (checkBox1.Checked)
             {
                 Gpu2(dimention, loopCount);
@@ -61,6 +69,7 @@ namespace WindowsFormsApp1
         [GpuManaged]
         public void Gpu2(int n, int loops)
         {
+           
             var arg1 = Enumerable.Range(0, n).ToArray();
             var arg2 = Enumerable.Range(0, n).ToArray();
             var result = new int[n];
@@ -72,7 +81,7 @@ namespace WindowsFormsApp1
             for (int j = 0; j < loops; j++)
             {
                 gpu.For(0, result.Length, i => result[i] = arg1[i] + arg2[i]);
-
+                progressBar1.PerformStep();
             }
             sw.Stop();
            textBox3.Text+= $"GPU Parallel: {sw.Elapsed}{Environment.NewLine}";
@@ -80,6 +89,7 @@ namespace WindowsFormsApp1
 
         public void CpuParallel(int n, int loops)
         {
+           
             var arg1 = Enumerable.Range(0, n).ToArray();
             var arg2 = Enumerable.Range(0, n).ToArray();
             var result = new int[n];
@@ -88,6 +98,7 @@ namespace WindowsFormsApp1
             for (int j = 0; j < loops; j++)
             {
                 Parallel.For(0, result.Length, i => result[i] = arg1[i] + arg2[i]);
+                progressBar1.PerformStep();
             }
             sw.Stop();
             textBox3.Text += $"CPU Parallel: {sw.Elapsed}{Environment.NewLine}";
@@ -97,6 +108,7 @@ namespace WindowsFormsApp1
 
         public void Cpu(int n, int loops)
         {
+           
             var arg1 = Enumerable.Range(0, n).ToArray();
             var arg2 = Enumerable.Range(0, n).ToArray();
             var result = new int[n];
@@ -109,6 +121,7 @@ namespace WindowsFormsApp1
                 {
                     result[i] = arg1[i] + arg2[i];
                 }
+                progressBar1.PerformStep();
             }
             sw.Stop();
             textBox3.Text += $"CPU: {sw.Elapsed}{Environment.NewLine}";

@@ -44,7 +44,13 @@ namespace WindowsFormsApp1
         {
             if (srcDir == null) {MessageBox.Show("No input data"); return; }
             var imagePaths = Directory.GetFiles(srcDir);
-
+            progressBar1.Value = 0;
+            int checkedNums = 0;
+            if (checkBox1.Checked) checkedNums++;
+            if (checkBox2.Checked) checkedNums++;
+            if (checkBox3.Checked) checkedNums++;
+            if (checkBox4.Checked) checkedNums++;
+            progressBar1.Maximum = imagePaths.Length*checkedNums;
             if (checkBox3.Checked)
             {
                 Test("CPU Parallel", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
@@ -76,6 +82,7 @@ namespace WindowsFormsApp1
             textBox1.Text += $"{Environment.NewLine}Testing {tech}{Environment.NewLine}";
             
             var stopwatch = new Stopwatch();
+           
             
             foreach (string imagePath in imagePaths)
             {
@@ -86,6 +93,7 @@ namespace WindowsFormsApp1
                 Rgba32[] pixelArray = new Rgba32[image.Height * image.Width];
                 image.SavePixelData(pixelArray);
 
+                progressBar1.Value++;
 
                 string imageTitle = Path.GetFileName(imagePath);
 

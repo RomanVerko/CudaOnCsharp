@@ -44,6 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +71,7 @@
             this.panel1.Controls.Add(this.checkBox3);
             this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Location = new System.Drawing.Point(340, 37);
+            this.panel1.Location = new System.Drawing.Point(328, 35);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(155, 125);
             this.panel1.TabIndex = 10;
@@ -164,7 +165,7 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(587, 82);
+            this.button3.Location = new System.Drawing.Point(581, 59);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(144, 32);
             this.button3.TabIndex = 9;
@@ -207,10 +208,18 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Choose path";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(581, 111);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(144, 23);
+            this.progressBar1.TabIndex = 14;
+            // 
             // ImageProcessingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel3);
@@ -246,5 +255,6 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

@@ -47,7 +47,8 @@ namespace WindowsFormsApp1
             Stopwatch sw = new Stopwatch();
             CsvData = $"n;GPU;CPU TPL;CPU{Environment.NewLine}";
             label5.Visible = true;
-            
+            progressBar1.Value = 0;
+            progressBar1.Maximum = 1100;
             try
             {
                 while (true)
@@ -108,6 +109,7 @@ namespace WindowsFormsApp1
                         }
                     }
                     n += step;
+                    progressBar1.Value = n;
                     //TODO make work twice
                 }
             }
@@ -115,7 +117,8 @@ namespace WindowsFormsApp1
             {
                 textBox1.Text += $"{Environment.NewLine} Memory is over. This is more than your GPU capabilities. {Environment.NewLine}";
                 label5.Visible = false;
-               // Gpu.FreeAllImplicitMemory();
+                progressBar1.Value = progressBar1.Maximum;
+              
             }
 
             label5.Visible = false;
@@ -137,10 +140,14 @@ namespace WindowsFormsApp1
             }
             return result;
         }
-
+        /// <summary>
+        /// multiplicate matrix size N x N
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-           
+            progressBar1.Value = 0;
             Stopwatch sw = new Stopwatch();
             n = trackBar1.Value;
             double[][] ma = MatrixCreate(n, n);
@@ -155,34 +162,42 @@ namespace WindowsFormsApp1
                     mb[i][j] = i + j;
                 }
             }
-
+            int checkedNums = 0;
+            if (checkBox1.Checked) checkedNums++;
+            if (checkBox2.Checked) checkedNums++;
+            if (checkBox3.Checked) checkedNums++;
+            progressBar1.Maximum = checkedNums;
             textBox1.Text += $"{Environment.NewLine}\t---- n={n} ----{Environment.NewLine}";
+            try
+            {
+                if (checkBox1.Checked)
+                {
+                    prod3 = GpuParallelMatrixProduct(ma, mb);
+                    textBox1.Text += $"GPU Parallel: {gpuTime.Elapsed}{Environment.NewLine}";
+                    progressBar1.Value++;
+                    //todo: norm steps for all operations
 
-            if (checkBox1.Checked)
-            {
-                prod3 = GpuParallelMatrixProduct(ma, mb);
-                textBox1.Text += $"GPU Parallel: {gpuTime.Elapsed}{Environment.NewLine}";
-                
-            }
+                }
 
-            if (checkBox3.Checked)
-            {
-                sw.Start();
-                prod = MatrixProduct(ma, mb);
-                sw.Stop();
-                textBox1.Text += $"CPU: {sw.Elapsed}{Environment.NewLine}";
-                
-                sw.Reset();
-            }
-            if (checkBox2.Checked)
-            {
-                sw.Start();
-                prod2 = CpuParallelMatrixProduct(ma, mb);
-                sw.Stop();
-                textBox1.Text += $"CPU Parallel: {sw.Elapsed}{Environment.NewLine}";
-                
-                sw.Reset();
-            }
+                if (checkBox3.Checked)
+                {
+                    sw.Start();
+                    prod = MatrixProduct(ma, mb);
+                    sw.Stop();
+                    textBox1.Text += $"CPU: {sw.Elapsed}{Environment.NewLine}";
+                    progressBar1.Value++;
+                    sw.Reset();
+                }
+                if (checkBox2.Checked)
+                {
+                    sw.Start();
+                    prod2 = CpuParallelMatrixProduct(ma, mb);
+                    sw.Stop();
+                    textBox1.Text += $"CPU Parallel: {sw.Elapsed}{Environment.NewLine}";
+                    progressBar1.Value++;
+                    sw.Reset();
+                }
+            } catch (Exception ex) { textBox1.Text += $"{Environment.NewLine} Memory is over. This is more than your GPU capabilities. {Environment.NewLine}"; }
            
 
         }
