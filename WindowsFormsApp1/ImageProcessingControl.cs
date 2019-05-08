@@ -53,38 +53,38 @@ namespace WindowsFormsApp1
             progressBar1.Maximum = imagePaths.Length*checkedNums;
             if (checkBox3.Checked)
             {
-                Test("CPU Parallel", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
+                Inverse("CPU Parallel", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
             }
 
             if (checkBox1.Checked)
             {
                 Console.WriteLine("Warming up GPU...");
                 Alea.Gpu.Default.For(0, 100, i => i++);
-                Test("AleaGPU", imagePaths, outDir, image => AleaGpuImageFilter.Apply(image, AleaGpuImageFilter.Invert));
+                Inverse("AleaGPU", imagePaths, outDir, image => AleaGPU.Apply(image, AleaGPU.Invert));
             }
             if (checkBox2.Checked)
             {
                 using (var ilGpuFilter = new IlGpuFilter())
                 {
-                    Test("ILGPU", imagePaths, outDir, image => ilGpuFilter.Apply(image, IlGpuFilter.Invert));
+                    Inverse("ILGPU", imagePaths, outDir, image => ilGpuFilter.Apply(image, IlGpuFilter.Invert));
                 }
             }
             if (checkBox4.Checked)
             {
-                Test("Cpu_Linear", imagePaths, outDir, image => CPUImageFilter.Apply(image, CPUImageFilter.Invert));
+                Inverse("Cpu_Linear", imagePaths, outDir, image => CPUImageFilter.Apply(image, CPUImageFilter.Invert));
             }
             
         }
 
-        private void Test(string tech, string[] imagePaths, string outDir, Func<Rgba32[], Rgba32[]> transform)
+        private void Inverse(string technology, string[] Paths, string outDir, Func<Rgba32[], Rgba32[]> transform)
         {
 
-            textBox1.Text += $"{Environment.NewLine}Testing {tech}{Environment.NewLine}";
+            textBox1.Text += $"{Environment.NewLine}Testing {technology}{Environment.NewLine}";
             
             var stopwatch = new Stopwatch();
            
             
-            foreach (string imagePath in imagePaths)
+            foreach (string imagePath in Paths)
             {
                 
                 textBox1.Text += $"Processing {imagePath}...{Environment.NewLine}";
@@ -107,10 +107,10 @@ namespace WindowsFormsApp1
                     width: image.Width,
                     height: image.Height);
 
-                res.Save(Path.Combine(outDir, $"{imageTitle}.{tech}.bmp"));
+                res.Save(Path.Combine(outDir, $"{imageTitle}.{technology}.bmp"));
             }
 
-            textBox1.Text += $"{tech}:\t\t{stopwatch.Elapsed}{Environment.NewLine}";
+            textBox1.Text += $"{technology}:\t\t{stopwatch.Elapsed}{Environment.NewLine}";
         }
         /// <summary>
         /// Saving in txt
@@ -152,7 +152,7 @@ namespace WindowsFormsApp1
     }
 
 
-    public class AleaGpuImageFilter
+    public class AleaGPU
     {
         [GpuManaged]
         public static Rgba32[] Apply(Rgba32[] pixelArray, Func<Rgba32, Rgba32> filter)

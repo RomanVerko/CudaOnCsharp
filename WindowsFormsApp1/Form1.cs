@@ -83,7 +83,7 @@ namespace WindowsFormsApp1
         private void button5_Click(object sender, EventArgs e) // instructions
         {
             SidePanel.Visible = true;
-            label1.Text = "         Instructions";
+            label1.Text = "             About";
             SidePanel.Height = button5.Height;
             SidePanel.Top = button5.Top;
             aboutControl1.BringToFront();

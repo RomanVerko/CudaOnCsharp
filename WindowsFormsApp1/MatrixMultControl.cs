@@ -110,7 +110,7 @@ namespace WindowsFormsApp1
                     }
                     n += step;
                     progressBar1.Value = n;
-                    //TODO make work twice
+                    
                 }
             }
             catch (Exception ex)
