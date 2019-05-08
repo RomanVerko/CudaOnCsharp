@@ -45,7 +45,7 @@ namespace WindowsFormsApp1
                     $"Max grid size : {device.Properties.MaxGridSize}{Environment.NewLine}" +
                     $"Max thread dimention : { device.Properties.MaxThreadsDim}{Environment.NewLine}" +
                     $"Shared memory per block : {device.Properties.SharedMemPerBlock}{Environment.NewLine}" +
-                    $"Total memory : {device.TotalMemory.ToString()}{Environment.NewLine}" +
+                    $"Total memory : {device.TotalMemory.ToString()} bytes, {device.TotalMemory/1024/1024} MBytes{Environment.NewLine}" +
                     $"Device type : {device.Type}{Environment.NewLine}{Environment.NewLine}";
                 //todo: add more gpu info, cpu info
                 // note that device ids for all GPU devices in a system does not need to be continuous

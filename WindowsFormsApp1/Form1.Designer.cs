@@ -42,10 +42,12 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.instructionControl1 = new WindowsFormsApp1.InstructionControl();
+            this.infoControl1 = new WindowsFormsApp1.InfoControl();
             this.additionControl1 = new WindowsFormsApp1.AdditionControl();
             this.imageProcessingControl1 = new WindowsFormsApp1.ImageProcessingControl();
             this.matrixMultControl1 = new WindowsFormsApp1.MatrixMultControl();
-            this.infoControl1 = new WindowsFormsApp1.InfoControl();
+            this.aboutControl1 = new WindowsFormsApp1.AboutControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -99,7 +101,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(188, 69);
             this.button5.TabIndex = 0;
-            this.button5.Text = "Instructions";
+            this.button5.Text = "About";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -176,7 +178,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(472, 26);
+            this.label1.Location = new System.Drawing.Point(457, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(307, 36);
             this.label1.TabIndex = 2;
@@ -184,6 +186,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.aboutControl1);
+            this.panel2.Controls.Add(this.instructionControl1);
             this.panel2.Controls.Add(this.infoControl1);
             this.panel2.Controls.Add(this.additionControl1);
             this.panel2.Controls.Add(this.imageProcessingControl1);
@@ -218,6 +222,22 @@
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
+            // instructionControl1
+            // 
+            this.instructionControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.instructionControl1.Location = new System.Drawing.Point(0, 0);
+            this.instructionControl1.Name = "instructionControl1";
+            this.instructionControl1.Size = new System.Drawing.Size(823, 522);
+            this.instructionControl1.TabIndex = 4;
+            // 
+            // infoControl1
+            // 
+            this.infoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.infoControl1.Location = new System.Drawing.Point(0, 0);
+            this.infoControl1.Name = "infoControl1";
+            this.infoControl1.Size = new System.Drawing.Size(823, 522);
+            this.infoControl1.TabIndex = 3;
+            // 
             // additionControl1
             // 
             this.additionControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -244,13 +264,13 @@
             this.matrixMultControl1.Size = new System.Drawing.Size(823, 522);
             this.matrixMultControl1.TabIndex = 0;
             // 
-            // infoControl1
+            // aboutControl1
             // 
-            this.infoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.infoControl1.Location = new System.Drawing.Point(0, 0);
-            this.infoControl1.Name = "infoControl1";
-            this.infoControl1.Size = new System.Drawing.Size(823, 522);
-            this.infoControl1.TabIndex = 3;
+            this.aboutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.aboutControl1.Location = new System.Drawing.Point(0, 0);
+            this.aboutControl1.Name = "aboutControl1";
+            this.aboutControl1.Size = new System.Drawing.Size(823, 522);
+            this.aboutControl1.TabIndex = 5;
             // 
             // Form1
             // 
@@ -297,6 +317,8 @@
         private ImageProcessingControl imageProcessingControl1;
         private AdditionControl additionControl1;
         private InfoControl infoControl1;
+        private InstructionControl instructionControl1;
+        private AboutControl aboutControl1;
     }
 }
 

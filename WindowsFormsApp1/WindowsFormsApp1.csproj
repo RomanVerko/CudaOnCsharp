@@ -218,6 +218,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AboutControl.Designer.cs">
+      <DependentUpon>AboutControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdditionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -242,6 +248,12 @@
     <Compile Include="InfoControl.Designer.cs">
       <DependentUpon>InfoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="InstructionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InstructionControl.Designer.cs">
+      <DependentUpon>InstructionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MatrixMultControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -250,6 +262,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutControl.resx">
+      <DependentUpon>AboutControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdditionControl.resx">
       <DependentUpon>AdditionControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoControl.resx">
       <DependentUpon>InfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InstructionControl.resx">
+      <DependentUpon>InstructionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MatrixMultControl.resx">
       <DependentUpon>MatrixMultControl.cs</DependentUpon>
