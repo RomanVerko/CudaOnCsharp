@@ -42,12 +42,12 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.aboutControl1 = new WindowsFormsApp1.AboutControl();
             this.instructionControl1 = new WindowsFormsApp1.InstructionControl();
             this.infoControl1 = new WindowsFormsApp1.InfoControl();
             this.additionControl1 = new WindowsFormsApp1.AdditionControl();
             this.imageProcessingControl1 = new WindowsFormsApp1.ImageProcessingControl();
             this.matrixMultControl1 = new WindowsFormsApp1.MatrixMultControl();
-            this.aboutControl1 = new WindowsFormsApp1.AboutControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -222,6 +222,14 @@
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
+            // aboutControl1
+            // 
+            this.aboutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.aboutControl1.Location = new System.Drawing.Point(0, 0);
+            this.aboutControl1.Name = "aboutControl1";
+            this.aboutControl1.Size = new System.Drawing.Size(823, 522);
+            this.aboutControl1.TabIndex = 5;
+            // 
             // instructionControl1
             // 
             this.instructionControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -264,14 +272,6 @@
             this.matrixMultControl1.Size = new System.Drawing.Size(823, 522);
             this.matrixMultControl1.TabIndex = 0;
             // 
-            // aboutControl1
-            // 
-            this.aboutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.aboutControl1.Location = new System.Drawing.Point(0, 0);
-            this.aboutControl1.Name = "aboutControl1";
-            this.aboutControl1.Size = new System.Drawing.Size(823, 522);
-            this.aboutControl1.TabIndex = 5;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,6 +285,7 @@
             this.Controls.Add(this.panel1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
