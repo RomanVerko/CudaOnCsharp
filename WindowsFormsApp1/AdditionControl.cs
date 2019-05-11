@@ -78,11 +78,15 @@ namespace WindowsFormsApp1
             Stopwatch sw = new Stopwatch();
             gpu.For(0, 100, i => i++);
             sw.Start();
-            for (int j = 0; j < loops; j++)
+
+            gpu.For(0, loops, j =>
             {
-                gpu.For(0, result.Length, i => result[i] = arg1[i] + arg2[i]);
-                progressBar1.PerformStep();
-            }
+                for (int i = 0; i < result.Length; i++)
+                {
+                    result[i] = arg1[i] + arg2[i];
+                }
+            });
+            progressBar1.Value+=loops;
             sw.Stop();
            textBox3.Text+= $"GPU Parallel: {sw.Elapsed}{Environment.NewLine}";
         }

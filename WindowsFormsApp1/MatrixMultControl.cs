@@ -197,7 +197,7 @@ namespace WindowsFormsApp1
                     progressBar1.Value++;
                     sw.Reset();
                 }
-            } catch (Exception ex) { textBox1.Text += $"{Environment.NewLine} Memory is over. This is more than your GPU capabilities. {Environment.NewLine}"; }
+            } catch (Exception ex) { textBox1.Text += $"{Environment.NewLine} Memory is over. This is more than your GPU capabilities. Please reopen the program for future calculations.{Environment.NewLine}"; }
            
 
         }
@@ -285,8 +285,6 @@ namespace WindowsFormsApp1
             }
             );
             gpuTime.Stop();
-
-
             return result;
         }
     }

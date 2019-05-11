@@ -58,7 +58,6 @@ namespace WindowsFormsApp1
 
             if (checkBox1.Checked)
             {
-                Console.WriteLine("Warming up GPU...");
                 Alea.Gpu.Default.For(0, 100, i => i++);
                 Inverse("AleaGPU", imagePaths, outDir, image => AleaGPU.Apply(image, AleaGPU.Invert));
             }
@@ -76,7 +75,7 @@ namespace WindowsFormsApp1
             
         }
 
-        private void Inverse(string technology, string[] Paths, string outDir, Func<Rgba32[], Rgba32[]> transform)
+        private void Inverse(string technology, string[] Paths, string outDir, Func<Rgba32[], Rgba32[]> invert)
         {
 
             textBox1.Text += $"{Environment.NewLine}Testing {technology}{Environment.NewLine}";
@@ -98,7 +97,7 @@ namespace WindowsFormsApp1
                 string imageTitle = Path.GetFileName(imagePath);
 
                 stopwatch.Start();
-                Rgba32[] transformedPixels = transform(pixelArray);
+                Rgba32[] transformedPixels = invert(pixelArray);
                 stopwatch.Stop();
 
                 Image<Rgba32> res = SixLabors.ImageSharp.Image.LoadPixelData(
@@ -145,10 +144,6 @@ namespace WindowsFormsApp1
             Directory.CreateDirectory(srcDir + "\\ImageResult");
             outDir = srcDir + @"\ImageResult";
         }
-
-       
-
-       
     }
 
 
@@ -162,7 +157,6 @@ namespace WindowsFormsApp1
             sw.Start();
             gpu.For(0, pixelArray.Length, i => pixelArray[i] = filter(pixelArray[i]));
             sw.Stop();
-            Console.WriteLine("inside: " + sw.Elapsed);
             return pixelArray;
         }
 

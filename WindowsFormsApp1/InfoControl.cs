@@ -40,15 +40,14 @@ namespace WindowsFormsApp1
                     $"Max threads per multiprocessor : {device.Attributes.MaxThreadsPerMultiprocessor}{Environment.NewLine}" +
                     $"Max threads per block : {device.Attributes.MaxThreadsPerBlock}{Environment.NewLine}" +
                     $"Warp size : {device.Attributes.WarpSize}{Environment.NewLine}" +
-                    $"Memory clock rate : { device.Attributes.MemoryClockRate}{Environment.NewLine}" +
+                    $"Memory clock rate : { device.Attributes.MemoryClockRate} Hz{Environment.NewLine}" +
                     $"Cores : { device.Cores.ToString()}{Environment.NewLine}" +
                     $"Max grid size : {device.Properties.MaxGridSize}{Environment.NewLine}" +
                     $"Max thread dimention : { device.Properties.MaxThreadsDim}{Environment.NewLine}" +
                     $"Shared memory per block : {device.Properties.SharedMemPerBlock}{Environment.NewLine}" +
                     $"Total memory : {device.TotalMemory.ToString()} bytes, {device.TotalMemory/1024/1024} MBytes{Environment.NewLine}" +
                     $"Device type : {device.Type}{Environment.NewLine}{Environment.NewLine}";
-                //todo: add more gpu info, cpu info
-                // note that device ids for all GPU devices in a system does not need to be continuous
+                
                 var id = device.Id;
                 var arch = device.Arch;
                 var numMultiProc = device.Attributes.MultiprocessorCount;
