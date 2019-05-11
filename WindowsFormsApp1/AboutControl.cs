@@ -85,7 +85,7 @@ namespace WindowsFormsApp1
             {
                 // Change the color of the link text by setting LinkVisited   
                 // to true.  
-                linkLabel2.LinkVisited = true;
+                linkLabel3.LinkVisited = true;
                 //Call the Process.Start method to open the default browser   
                 //with a URL:  
                 System.Diagnostics.Process.Start("https://github.com/quantalea");
@@ -107,7 +107,7 @@ namespace WindowsFormsApp1
             {
                 // Change the color of the link text by setting LinkVisited   
                 // to true.  
-                linkLabel2.LinkVisited = true;
+                linkLabel4.LinkVisited = true;
                 //Call the Process.Start method to open the default browser   
                 //with a URL:  
                 System.Diagnostics.Process.Start("https://github.com/m4rs-mt/ILGPU");
@@ -129,10 +129,32 @@ namespace WindowsFormsApp1
             {
                 // Change the color of the link text by setting LinkVisited   
                 // to true.  
-                linkLabel2.LinkVisited = true;
+                linkLabel5.LinkVisited = true;
                 //Call the Process.Start method to open the default browser   
                 //with a URL:  
                 System.Diagnostics.Process.Start("https://github.com/RomanVerko/CudaOnCsharp");
+            }
+        }
+
+        private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                VisitLink();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open link.");
+            }
+
+            void VisitLink()
+            {
+                // Change the color of the link text by setting LinkVisited   
+                // to true.  
+                linkLabel6.LinkVisited = true;
+                //Call the Process.Start method to open the default browser   
+                //with a URL:  
+                System.Diagnostics.Process.Start("https://developer.nvidia.com/cuda-zone");
             }
         }
     }
