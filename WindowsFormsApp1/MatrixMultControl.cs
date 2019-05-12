@@ -29,7 +29,7 @@ namespace WindowsFormsApp1
         int n, step, StepNumber = 0;
         static Stopwatch gpuTime = new Stopwatch();
         string data, CsvData;
-        
+        bool IsCalculated = false;
 
         /// <summary>
         /// Matrix multiplication from n=10 to inf
@@ -45,10 +45,16 @@ namespace WindowsFormsApp1
             }
 
             Stopwatch sw = new Stopwatch();
+            if (IsCalculated == false)
+            {
             CsvData = $"n;GPU;CPU TPL;CPU{Environment.NewLine}";
+            IsCalculated = true;
+            }
+            
+
             label5.Visible = true;
             progressBar1.Value = 0;
-            progressBar1.Maximum = 1100;
+            progressBar1.Maximum = 10;
             try
             {
                 while (true)
@@ -98,6 +104,7 @@ namespace WindowsFormsApp1
                     StepNumber++;
                     if (StepNumber % 10 == 0)
                     {
+                        progressBar1.Value = progressBar1.Maximum;
                         DialogResult dialogResult = MessageBox.Show($"Number of steps is {StepNumber}\nCurrent dimention is {n}\nAre you want to continue?", "Step counter", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
                         {
@@ -107,9 +114,10 @@ namespace WindowsFormsApp1
                         {
                             break;
                         }
+                        progressBar1.Value = 0;
                     }
                     n += step;
-                    progressBar1.Value = n;
+                    progressBar1.Value++;
                     
                 }
             }
@@ -168,6 +176,11 @@ namespace WindowsFormsApp1
             if (checkBox3.Checked) checkedNums++;
             progressBar1.Maximum = checkedNums;
             textBox1.Text += $"{Environment.NewLine}\t---- n={n} ----{Environment.NewLine}";
+            if (IsCalculated == false)
+            {
+                CsvData = $"n;GPU;CPU TPL;CPU{Environment.NewLine}";
+                IsCalculated = true;
+            }
             try
             {
                 if (checkBox1.Checked)
@@ -176,6 +189,7 @@ namespace WindowsFormsApp1
                     textBox1.Text += $"GPU Parallel: {gpuTime.Elapsed}{Environment.NewLine}";
                     progressBar1.Value++;
                     //todo: norm steps for all operations
+                    CsvData += $"{n};{gpuTime.ElapsedMilliseconds};";
 
                 }
 
@@ -185,6 +199,7 @@ namespace WindowsFormsApp1
                     prod = MatrixProduct(ma, mb);
                     sw.Stop();
                     textBox1.Text += $"CPU: {sw.Elapsed}{Environment.NewLine}";
+                    CsvData += $"{sw.ElapsedMilliseconds};";
                     progressBar1.Value++;
                     sw.Reset();
                 }
@@ -195,6 +210,7 @@ namespace WindowsFormsApp1
                     sw.Stop();
                     textBox1.Text += $"CPU Parallel: {sw.Elapsed}{Environment.NewLine}";
                     progressBar1.Value++;
+                    CsvData += $"{sw.ElapsedMilliseconds}{Environment.NewLine}";
                     sw.Reset();
                 }
             } catch (Exception ex) { textBox1.Text += $"{Environment.NewLine} Memory is over. This is more than your GPU capabilities. Please reopen the program for future calculations.{Environment.NewLine}"; }
