@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
             saveFileDialog1.Filter = "Text files(*.txt)|*.txt|Csv(*.csv)|*.csv";
         }
         int n, step, StepNumber = 0;
-        static Stopwatch gpuTime = new Stopwatch();
+        static Stopwatch gpuTime = new Stopwatch(); 
         string data, CsvData;
         bool IsCalculated = false;
 

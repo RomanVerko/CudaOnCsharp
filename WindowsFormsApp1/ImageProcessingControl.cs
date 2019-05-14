@@ -51,28 +51,30 @@ namespace WindowsFormsApp1
             if (checkBox3.Checked) checkedNums++;
             if (checkBox4.Checked) checkedNums++;
             progressBar1.Maximum = imagePaths.Length*checkedNums;
-            if (checkBox3.Checked)
+            try
             {
-                Inverse("CPU Parallel", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
-            }
-
-            if (checkBox1.Checked)
-            {
-                Alea.Gpu.Default.For(0, 100, i => i++);
-                Inverse("AleaGPU", imagePaths, outDir, image => AleaGPU.Apply(image, AleaGPU.Invert));
-            }
-            if (checkBox2.Checked)
-            {
-                using (var ilGpuFilter = new IlGpuFilter())
+                if (checkBox3.Checked)
                 {
-                    Inverse("ILGPU", imagePaths, outDir, image => ilGpuFilter.Apply(image, IlGpuFilter.Invert));
+                    Inverse("CPU Parallel", imagePaths, outDir, image => TplImageFilter.Apply(image, TplImageFilter.Invert));
                 }
-            }
-            if (checkBox4.Checked)
-            {
-                Inverse("Cpu_Linear", imagePaths, outDir, image => CPUImageFilter.Apply(image, CPUImageFilter.Invert));
-            }
-            
+
+                if (checkBox1.Checked)
+                {
+                    Alea.Gpu.Default.For(0, 100, i => i++);
+                    Inverse("AleaGPU", imagePaths, outDir, image => AleaGPU.Apply(image, AleaGPU.Invert));
+                }
+                if (checkBox2.Checked)
+                {
+                    using (var ilGpuFilter = new IlGpuFilter())
+                    {
+                        Inverse("ILGPU", imagePaths, outDir, image => ilGpuFilter.Apply(image, IlGpuFilter.Invert));
+                    }
+                }
+                if (checkBox4.Checked)
+                {
+                    Inverse("Cpu_Linear", imagePaths, outDir, image => CPUImageFilter.Apply(image, CPUImageFilter.Invert));
+                }
+            } catch (Exception ex) { MessageBox.Show("Oops, something went wrong...\nTry again!"); }
         }
 
         private void Inverse(string technology, string[] Paths, string outDir, Func<Rgba32[], Rgba32[]> invert)
