@@ -224,15 +224,18 @@ namespace WindowsFormsApp1
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e) // saving
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-            // получаем выбранный файл
-            string filename = saveFileDialog1.FileName;
-            // сохраняем текст в файл
-            System.IO.File.WriteAllText(filename, textBox1.Text);
-            string filename2 = filename.Replace(".txt", ".csv");
-            System.IO.File.WriteAllText(filename2, CsvData);
-            MessageBox.Show("Saved successfully");
+            try
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+                // получаем выбранный файл
+                string filename = saveFileDialog1.FileName;
+                // сохраняем текст в файл
+                System.IO.File.WriteAllText(filename, textBox1.Text);
+                string filename2 = filename.Replace(".txt", ".csv");
+                System.IO.File.WriteAllText(filename2, CsvData);
+                MessageBox.Show("Saved successfully");
+            }catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         static double[][] MatrixProduct(double[][] matrixA, double[][] matrixB)

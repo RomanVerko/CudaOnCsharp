@@ -138,7 +138,10 @@ namespace WindowsFormsApp1
             // получаем выбранный файл
             string filename = saveFileDialog1.FileName;
             // сохраняем текст в файл
-            System.IO.File.WriteAllText(filename, textBox1.Text);
+            try
+            {
+                System.IO.File.WriteAllText(filename, textBox3.Text);
+            }catch (Exception ex) { MessageBox.Show(ex.Message); }
             MessageBox.Show("Saved successfully");
         }
     }
